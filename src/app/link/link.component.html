@@ -1,0 +1,7 @@
+<div *ngFor="let link of linksArray">
+    <h2>{{ link.name }}</h2>
+    <p>Link: <a [href]="link.url">{{ link.url }}</a></p>
+    <p>Short Link: <a [href]="link.shorturl">{{ link.shorturl }}</a></p>
+    <p>Created At: {{ link.createdAt }}</p>
+    <p>Clicks: {{ link.clicks }}</p>
+  </div>
