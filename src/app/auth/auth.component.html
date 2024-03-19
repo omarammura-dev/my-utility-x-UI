@@ -1,48 +1,73 @@
-<div class="flex items-center justify-center min-h-screen">
-
-    <div class="w-full max-w-lg">
-      <div *ngIf="error" class="alert alert-danger">
+<main class="w-full h-screen flex flex-col items-center justify-center px-4">
+  <div class="max-w-sm w-full text-gray-600">
+    <div *ngIf="error" class="alert alert-danger">
         <p class="text-black">{{error}}</p>
       </div>
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-        <div *ngIf="!isLoginMode" class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Username
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" ngModel name="username" required>
-            <p class="text-red-500 text-xs italic">Please enter your username.</p>  
-        </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Email
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email" ngModel name="email" required>
-            <p class="text-red-500 text-xs italic">Please enter your email.</p>  
-        </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-              Password
-            </label>
-            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" ngModel name="password" required minlength="8">
-            <p class="text-red-500 text-xs italic">Please choose a password.</p>
-          </div>
-          <div class="flex items-center justify-between">
-            <button class="bg-green-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center" type="submit" [disabled]="!authForm.valid || isLoading">
-              <svg *ngIf="isLoading" xmlns="http://www.w3.org/2000/svg" class="animate-spin h-4 w-4 fill-white mr-2" viewBox="0 0 512 512">
-                <path d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z"/>
-              </svg>
-              {{ isLoginMode ? "Login" : "Sign up"}}
-            </button>
-            
-            <a *ngIf="isLoginMode" class="inline-block align-baseline font-bold text-sm text-green-600 hover:text-blue-800" href="#">
-              Forgot Password?
-            </a>
-           
-          </div>
-          <a (click)="onSwitchMode()" class="inline-block align-baseline font-bold text-sm text-green-600 hover:text-blue-800" type="button">
-            don't have an account? signup.
-          </a>
-        </form> 
 
+      <div class="text-center">
+        
+          <div class="mt-5 space-y-2">
+              <h3 class="text-gray-800 text-2xl font-bold sm:text-3xl">{{ isLoginMode ? "Log in to your account" : "Sign up for an account" }}</h3>
+              <p class="">Don't have an account? <a (click)="onSwitchMode()" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
+          </div>
       </div>
-</div>
+      <form class="mt-8 space-y-5" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+          <div *ngIf="!isLoginMode">
+              <label class="font-medium">
+                  Username
+              </label>
+              <input
+                  type="text"
+                  id="username"
+                  placeholder="Username"
+                  ngModel
+                  name="username"
+                  required
+                  class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              />
+          </div>
+          <div>
+              <label class="font-medium">
+                  Email
+              </label>
+              <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  ngModel
+                  name="email"
+                  required
+                  class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              />
+          </div>
+          <div>
+              <label class="font-medium">
+                  Password
+              </label>
+              <input
+                  type="password"
+                  id="password"
+                  placeholder="Password"
+                  ngModel
+                  name="password"
+                  required
+                  minlength="8"
+                  class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              />
+          </div>
+          <button
+              class="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150 disabled:bg-gray-500"
+              type="submit"
+              [disabled]="!authForm.valid || isLoading"
+          >
+              <svg *ngIf="isLoading" xmlns="http://www.w3.org/2000/svg" class="animate-spin h-4 w-4 fill-white mr-2" viewBox="0 0 512 512">
+                  <path d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z"/>
+              </svg>
+              {{ isLoginMode ? "Sign in" : "Sign up"}}
+          </button>
+          <div class="text-center">
+              <a href="javascript:void(0)" class="hover:text-indigo-600">Forgot password?</a>
+          </div>
+      </form>
+  </div>
+</main>

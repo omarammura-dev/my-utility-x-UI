@@ -53,7 +53,7 @@ export class AuthComponent {
     },
     err =>{
       console.log(err);
-      this.error = err.error.error
+      this.error = err.message
     })
     form.reset()
     this.isLoading = false

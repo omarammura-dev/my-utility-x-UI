@@ -3,7 +3,7 @@ export class Link {
         public name:string,
         public url:string,
         public shorturl:string,
-        public createdAt:string,
+        public createdat:string,
         public clicks:number
     ){}
 }

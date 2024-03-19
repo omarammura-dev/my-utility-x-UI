@@ -1,30 +1,104 @@
-<nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-    <a routerLink="/">
-      <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
-        <span class="font-semibold text-xl tracking-tight">MUX</span>
-      </div>
-    </a>
-    <div class="block lg:hidden">
-      <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-      </button>
-    </div>
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-      <div class="text-sm lg:flex-grow">
-        <a routerLink="/links" routerLinkActive="active" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-          Links
-        </a>
-        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-          ----
-        </a>
-        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-          ----
-        </a>
-      </div>
-      <div *ngIf="!auhtService.isAuthenticated()">
-        <a routerLink="/auth" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 mr-4">Login</a>
-        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Get started</a>
-      </div>
-    </div>
-  </nav>
+<div x-data="{ open: false }">
+  <div class="bg-gray-900">
+    <header>
+      <nav
+        x-bind:class="{ 'pb-5 md:text-sm absolute z-20 top-0 inset-x-0 bg-gray-800 rounded-xl mx-2 mt-2 md:mx-0 md:mt-0 md:relative md:bg-transparent': open, '' : !open }">
+        <div
+          class="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8"
+        >
+          <div class="flex items-center justify-between py-5 md:block">
+            <a href="javascript:void(0)">
+              <img
+                src=""
+                width="120"
+                height="50"
+                alt="logo"
+              />
+            </a>
+            <div class="md:hidden">
+              <button
+                class="menu-btn text-gray-400 hover:text-gray-300"
+                x-on:click="open = !open"
+              >
+                <template x-if="open">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </template>
+                <template x-if="!open">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
+                  </svg>
+                </template>
+              </button>
+            </div>
+          </div>
+          <div
+            x-bind:class="{ 'block' : open, 'hidden' : !open }"
+            class="flex-1 items-center mt-8 md:mt-0 md:flex"
+          >
+            <ul
+              class="flex-1 justify-end items-center space-y-6 md:flex md:space-x-6 md:space-y-0"
+            >
+              <li class="text-gray-300 hover:text-gray-400">
+                <a href="javascript:void(0)" class="block">Features</a>
+              </li>
+              <li class="text-gray-300 hover:text-gray-400">
+                <a href="javascript:void(0)" class="block">Integrations</a>
+              </li>
+              <li class="text-gray-300 hover:text-gray-400">
+                <a href="javascript:void(0)" class="block">Customers</a>
+              </li>
+              <li class="text-gray-300 hover:text-gray-400">
+                <a routerLink="/links" class="block">Links</a>
+              </li>
+              <li *ngIf="!auhtService.isAuthenticated()">
+                <a
+                  routerLink="/auth"
+                  routerLinkActive="auth"
+                  class="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-medium bg-sky-500 hover:bg-sky-400 active:bg-sky-600 duration-150 rounded-full md:inline-flex"
+                >
+                  login
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+  </div>
+</div>
+
