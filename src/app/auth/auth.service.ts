@@ -78,9 +78,11 @@ export class AuthService {
     }
 
 
-    isAuthenticated():Boolean{
+        isAuthenticated():Boolean{
       const user  = JSON.parse(localStorage.getItem("userData") as string)
-
+      if (user == null){
+        return false
+      }
       if(new Date(user._tokenExpiration) >  new Date() )
       {
         return true;

@@ -1,46 +1,30 @@
+
 <div class="space-y-6">
   <h3 class="text-2xl font-semibold text-gray-900">
     Links
   </h3>
-  <div *ngFor="let link of linksArray" class="bg-white shadow overflow-hidden sm:rounded-lg">
-    <div class="px-4 py-5 sm:px-6">
-      <h2 class="text-lg leading-6 font-medium text-gray-900">{{ link.name }}</h2>
-    </div>
-    <div class="border-t border-gray-200">
-      <dl>
-        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">
-            Link
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            <a [href]="link.url">{{ link.url }}</a>
-          </dd>
+  <app-button [text]="'Create new link'"></app-button>
+  <div class="grid grid-cols-3 gap-4">
+    <div *ngFor="let link of linksArray" class="bg-white shadow-lg overflow-hidden rounded-lg">
+      <div class="px-6 py-5 text-md leading-6">
+        <h2>{{ link.name }}</h2>
+        <div class="flex items-center mt-2">
+          <span class="text-gray-500 mr-2 ">Link:</span>
+          <span class="underline hover:text-blue-500" >{{ link.url | truncate }}</span>
         </div>
-        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">
-            Short Link
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            <a [href]="link.shorturl">{{ link.shorturl }}</a>
-          </dd>
+        <div class="flex items-center mt-2">
+          <span class="text-gray-500 mr-2">Short Link:</span>
+          <a [href]="link.shorturl" class="underline hover:text-blue-500">{{ link.shorturl }}</a>
         </div>
-        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">
-            Created At
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            {{ link.createdat }}
-          </dd>
+        <div class="flex items-center mt-2">
+          <span class="text-gray-500 mr-2">Created At:</span>
+          <span>{{ link.createdat }}</span>
         </div>
-        <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">
-            Clicks
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            {{ link.clicks }}
-          </dd>
+        <div class="flex items-center mt-2">
+          <span class="text-gray-500 mr-2">Clicks:</span>
+          <span>{{ link.clicks }}</span>
         </div>
-      </dl>
+      </div>
     </div>
   </div>
 </div>

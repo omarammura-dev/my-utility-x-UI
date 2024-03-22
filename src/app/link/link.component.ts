@@ -4,11 +4,13 @@ import { LinkService } from './link.service';
 import { AuthService } from '../auth/auth.service';
 import { Link } from './link.model';
 import { NgFor } from '@angular/common';
+import { TruncatePipe } from '../Pipes/truncate.pipe';
+import { ButtonComponent } from '../design/basic-elements/button/button.component';
 
 @Component({
   selector: 'app-link',
   standalone: true,
-  imports: [RouterLink,NgFor],
+  imports: [RouterLink, NgFor,TruncatePipe,ButtonComponent],
   templateUrl: './link.component.html',
   styleUrl: './link.component.css'
 })
