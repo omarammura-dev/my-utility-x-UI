@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [NgIf,FormsModule,HttpClientModule],
+  imports: [NgIf,FormsModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
@@ -49,7 +49,6 @@ export class AuthComponent {
     }
 
     authObs.subscribe(resdata => {
-      console.log(resdata) 
       this.router.navigate(['/application/v1'])
     },
     err =>{

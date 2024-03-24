@@ -16,11 +16,12 @@ export class JwtInterceptor implements HttpInterceptor{
         take(1),
         switchMap(user => {
           if (!user) {
+
             return next.handle(req);
           }
   
           const authReq = req.clone({
-            headers: new HttpHeaders().set('Authorization', user.token as string)
+            headers: new HttpHeaders().set('Authorization', user!.token as string)
           });
   
           return next.handle(authReq);

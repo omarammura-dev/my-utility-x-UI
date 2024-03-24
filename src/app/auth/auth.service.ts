@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpInterceptorFn } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.development";
 import { BehaviorSubject, Subject,tap } from "rxjs";
@@ -66,8 +66,6 @@ export class AuthService {
                 return;
             }
             const loadedUser = new User(userData.ID,userData.Username,userData.Email,userData._token,new Date(userData._tokenExpiration))
-            console.log(loadedUser);
-            
             if(loadedUser.token){
                 this.user.next(loadedUser);
             }
@@ -89,4 +87,6 @@ export class AuthService {
       }
       return false;
     }
+
+  
 }
