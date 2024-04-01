@@ -12,6 +12,7 @@ build:
   stage: build
   before_script:
     - apk add --no-cache --upgrade bash
+    - apk add --no-cache git
   script:
     - npm ci
     - npm run build --prod
@@ -20,6 +21,7 @@ deploy:
   stage: deploy
   before_script:
     - apk add --no-cache --upgrade bash
+    - apk add --no-cache git
   script:
     - scp -o StrictHostKeyChecking=no -r dist/mux-ui /tmp/angular-dist/
     - bash /home/ubuntu/deployments/deploy.sh  
