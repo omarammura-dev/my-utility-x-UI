@@ -16,7 +16,7 @@ export interface AuthResponseData {
 export class AuthService {
 
     user = new BehaviorSubject<User|null>(null)
-
+    private _isAuthenticated = new BehaviorSubject<boolean>(false);
     constructor(private http: HttpClient){}
 
     signup(username:string, email:string,password:string){
@@ -48,6 +48,7 @@ export class AuthService {
         const expirationDate = new Date(new Date().getTime() + (7200 * 1000))
         const user = new User(userId, username, email, token, expirationDate);
         this.user.next(user)
+        this._isAuthenticated.next(true)
         localStorage.setItem("userData",JSON.stringify(user))
     }
 
@@ -76,16 +77,12 @@ export class AuthService {
     }
 
 
-        isAuthenticated():Boolean{
+    isAuthenticated(){
       const user  = JSON.parse(localStorage.getItem("userData") as string)
-      if (user == null){
-        return false
+      if (user && new Date(user._tokenExpiration) > new Date()) {
+        this._isAuthenticated.next(true)
       }
-      if(new Date(user._tokenExpiration) >  new Date() )
-      {
-        return true;
-      }
-      return false;
+      return this._isAuthenticated.asObservable() 
     }
 
   

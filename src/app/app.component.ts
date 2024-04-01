@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './design/header/header.component';
 import { SidebarComponent } from './design/sidebar/sidebar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
 import { FooterComponent } from './design/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { environment } from '../environments/environment.development';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +18,39 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 })
 export class AppComponent implements OnInit{
   
-  isLoggedIn:Boolean = this.authService.isAuthenticated() 
+  isLoggedIn = false
 
-  constructor(private authService:AuthService,private router:Router){}
+  constructor(private authService:AuthService,private router:Router,private route: ActivatedRoute,  private http: HttpClient){}
   ngOnInit(): void {
     this.authService.autoLogin();
-    if (this.isLoggedIn){
-      this.router.navigate(['/application/v1'])
+    this.authService.isAuthenticated().subscribe(isAuthenticated=>
+      {
+        this.isLoggedIn = isAuthenticated
+        console.log(this.isLoggedIn)
+       
+      })
+      let link = ""
+      this.route.queryParams.subscribe(param=>{
+       link =param["linkId"]  
+       console.log(param["linkId"])
+      })
+     
+     
+      if (link ) {
+        this.http.get(environment.apiUrl + link).subscribe( resData=>{
+          console.log(resData)
+          // if (resData.url) {
+          //   this.router.navigateByUrl(resData.url);
+          // }
+        },
+        err =>{
+          console.log(err)
+        }
+        );
+      } else if(this.isLoggedIn){
+        this.router.navigate(['/application/v1'])
+      }else{
+        this.router.navigate(['/']) 
+      }
     }
   }
-}

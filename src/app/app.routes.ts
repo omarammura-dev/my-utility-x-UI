@@ -4,14 +4,17 @@ import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticationGuard } from './auth/auth.guard';
 import { CreateLinkComponent } from './link/create-link/create-link.component';
+import { AppComponent } from './app.component';
 
-export const routes: Routes = [
-   
+export const routes: Routes = [ 
+    { path: ':linkId', component: AppComponent },
     { path:'auth',component:AuthComponent},
+
     { path:'application/v1',component:DashboardComponent,canActivate:[AuthenticationGuard], children:[
         { path:'links', component:LinkComponent, children:[
             { path:'create-link', component:CreateLinkComponent},
         ]},
        
     ]},
+  
 ];

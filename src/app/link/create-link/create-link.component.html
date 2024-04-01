@@ -1,11 +1,21 @@
-<form class="space-y-6" #createLinkForm="ngForm" (ngSubmit)="CreateLink(createLinkForm)">
+
+<div class="container">
+
+  <div *ngIf="error" class="alert alert-danger">
+    <p class="text-black">{{error}}</p>
+  </div>
+  <div *ngIf="success" class="alert alert-success">
+    <p class="text-black">{{success}}</p>
+  </div>
+  <form class="space-y-6" #createLinkForm="ngForm" (ngSubmit)="CreateLink(createLinkForm)">
     <div class="flex flex-col">
       <label for="title" class="mb-2 font-semibold text-gray-700">Title</label>
-      <input type="text" id="title" name="title" class="p-2 border rounded-md" placeholder="Enter title" name="title" ngmodel>
+      <input type="text" id="title" name="title" class="p-2 border rounded-md" placeholder="Enter title"  ngModel name="title" >
     </div>
     <div class="flex flex-col">
       <label for="link" class="mb-2 font-semibold text-gray-700">Link</label>
-      <input type="text" id="link" name="link"  class="p-2 border rounded-md" placeholder="Enter link" name="link" ngmodel required>
+      <input type="text" id="link" name="link"  class="p-2 border rounded-md" placeholder="Enter link" ngModel name="link"  required>
     </div>
     <button type="submit" class="p-2 bg-blue-500 text-white rounded-md">Create Link</button>
   </form>
+</div>

@@ -7,7 +7,6 @@ import { NgFor, NgIf } from '@angular/common';
 import { TruncatePipe } from '../../Pipes/truncate.pipe';
 import { ButtonComponent } from '../../design/basic-elements/button/button.component';
 import { CreateLinkComponent } from '../create-link/create-link.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-link',
@@ -28,11 +27,8 @@ ngOnInit(): void {
       this.isCreateLinkRoute = this.router.url.endsWith('/create-link');
     }
   })
-
-  this.linkService.getLinks().subscribe(links => {
-    this.linksArray = links
-  }, error => {
-    console.error(error);
-  });
+  this.linkService.getLinks().subscribe(links =>{
+    this.linksArray =links
+  })
 }
 }

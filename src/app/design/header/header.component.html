@@ -72,7 +72,7 @@
               <li class="text-gray-300 hover:text-gray-400">
                 <a routerLink="/links" class="block">Links</a>
               </li>
-              <li *ngIf="!auhtService.isAuthenticated()">
+              <li *ngIf="!isLoggedIn">
                 <a
                   routerLink="/auth"
                   routerLinkActive="auth"

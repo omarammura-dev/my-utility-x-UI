@@ -10,7 +10,7 @@
         <h2>{{ link.name }}</h2>
         <div class="flex items-center mt-2">
           <span class="text-gray-500 mr-2 ">Link:</span>
-          <span class="underline hover:text-blue-500" >{{ link.url | truncate }}</span>
+          <a class="underline hover:text-blue-500" href="{{link.url}}" >{{ link.url | truncate }}</a>
         </div>
         <div class="flex items-center mt-2">
           <span class="text-gray-500 mr-2">Short Link:</span>

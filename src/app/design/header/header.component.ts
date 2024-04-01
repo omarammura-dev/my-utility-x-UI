@@ -12,12 +12,15 @@ import { NgIf } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public auhtService:AuthService){}
+  constructor(private auhtService:AuthService){}
 
-  
+  isLoggedIn = false
 
   ngOnInit(): void {
     this.auhtService.autoLogin()
+    this.auhtService.isAuthenticated().subscribe(isAuthenticated =>{
+      this.isLoggedIn = isAuthenticated
+    })
   }
  
 
