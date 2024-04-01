@@ -24,10 +24,10 @@ deploy:
     - apk add --no-cache git
     - apk add --no-cache openssh-client
   script:
-    - scp -o StrictHostKeyChecking=no -r dist/mux-ui /tmp/angular-dist/
+    - scp -o StrictHostKeyChecking=no -r dist/front-end /tmp/angular-dist/
     - bash /home/ubuntu/deployments/deploy.sh  
   artifacts:
     paths:
-      - dist/mux-ui  
+      - dist/front-end
   only:
     - main  
