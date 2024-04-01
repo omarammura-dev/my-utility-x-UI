@@ -1,4 +1,4 @@
-image: node:lts-alpine AS builder
+image: node:21-alpine
 
 stages:
   - build
@@ -17,9 +17,9 @@ build:
 deploy:
   stage: deploy
   script:
-    - scp -o StrictHostKeyChecking=no -r dist/your-angular-app-name /tmp/angular-dist/  # Replace with your project name
+    - scp -o StrictHostKeyChecking=no -r dist/mux-ui /tmp/angular-dist/  
   artifacts:
     paths:
-      - dist/your-angular-app-name/  # Replace with your project name
+      - dist/mux-ui  
   only:
-    - master  # Run on pushes to master branch
+    - main  
