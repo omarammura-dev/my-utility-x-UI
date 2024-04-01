@@ -13,7 +13,7 @@ RUN ng build --prod
 
 FROM nginx:latest
 
-COPY --from=builder /app/dist/mux-ui /usr/share/nginx/html
+COPY --from=builder /app/dist/front-end /usr/share/nginx/html
 
 EXPOSE 80 
 
