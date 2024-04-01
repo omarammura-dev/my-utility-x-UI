@@ -9,7 +9,7 @@ COPY . .
 RUN ng build --prod
 
 # Install openssh-client for scp command
-RUN apk add --no-cache openssh-client
+
 
 FROM nginx:latest
 
