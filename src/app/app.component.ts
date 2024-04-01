@@ -26,31 +26,9 @@ export class AppComponent implements OnInit{
     this.authService.isAuthenticated().subscribe(isAuthenticated=>
       {
         this.isLoggedIn = isAuthenticated
-        console.log(this.isLoggedIn)
-       
-      })
-      let link = ""
-      this.route.queryParams.subscribe(param=>{
-       link =param["linkId"]  
-       console.log(param["linkId"])
-      })
-     
-     
-      if (link ) {
-        this.http.get(environment.apiUrl + link).subscribe( resData=>{
-          console.log(resData)
-          // if (resData.url) {
-          //   this.router.navigateByUrl(resData.url);
-          // }
-        },
-        err =>{
-          console.log(err)
+        if(this.isLoggedIn){
+          this.router.navigate(['/application/v1'])
         }
-        );
-      } else if(this.isLoggedIn){
-        this.router.navigate(['/application/v1'])
-      }else{
-        this.router.navigate(['/']) 
-      }
+      })
     }
   }

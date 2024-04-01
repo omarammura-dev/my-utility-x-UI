@@ -7,7 +7,6 @@ import { CreateLinkComponent } from './link/create-link/create-link.component';
 import { AppComponent } from './app.component';
 
 export const routes: Routes = [ 
-    { path: ':linkId', component: AppComponent },
     { path:'auth',component:AuthComponent},
 
     { path:'application/v1',component:DashboardComponent,canActivate:[AuthenticationGuard], children:[
