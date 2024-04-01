@@ -25,14 +25,15 @@ deploy:
     - apk add --no-cache openssh-client
   script:
     - pwd
+    - pwd
     - npm ci
     - npm run build --prod
     - ls -la dist
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s) && echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - eval $(ssh-agent -s) && echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - scp -o StrictHostKeyChecking=no -r dist/front-end $$USER@$$IP_ADDRESS:/tmp/angular-dist/
     - ssh $USER@$IP_ADDRESS "bash /home/ubuntu/deployments/deploy.sh"
