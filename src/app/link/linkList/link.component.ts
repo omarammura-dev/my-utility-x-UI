@@ -7,6 +7,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { TruncatePipe } from '../../Pipes/truncate.pipe';
 import { ButtonComponent } from '../../design/basic-elements/button/button.component';
 import { CreateLinkComponent } from '../create-link/create-link.component';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-link',
@@ -16,6 +17,7 @@ import { CreateLinkComponent } from '../create-link/create-link.component';
   styleUrl: './link.component.css'
 })
 export class LinkComponent implements OnInit {
+getUrlLink = environment.getShortLink  
 linksArray: Link[] = []
 isCreateLinkRoute = false;
 constructor(private linkService:LinkService,private authService:AuthService,private router:Router){}
