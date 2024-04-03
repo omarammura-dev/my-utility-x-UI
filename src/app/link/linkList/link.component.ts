@@ -33,4 +33,8 @@ ngOnInit(): void {
     this.linksArray =links
   })
 }
+
+  redirectToShortUrl(shortUrl:String){
+    window.location.href = environment.getShortLink+shortUrl
+  }
 }
