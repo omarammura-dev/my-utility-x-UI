@@ -52,8 +52,7 @@ export class AuthComponent {
       this.router.navigate(['/application/v1'])
     },
     err =>{
-      console.log(err);
-      this.error = err.message
+      this.error = err.error
     })
     form.reset()
     this.isLoading = false

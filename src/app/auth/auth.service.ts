@@ -8,6 +8,7 @@ export interface AuthResponseData {
     message?:string,
     user:User,
     token:string,
+    error?:string
 }
 
 
