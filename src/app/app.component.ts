@@ -16,19 +16,19 @@ import { environment } from '../environments/environment.development';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent  {
   
   isLoggedIn = false
 
   constructor(private authService:AuthService,private router:Router,private route: ActivatedRoute,  private http: HttpClient){}
-  ngOnInit(): void {
-    this.authService.autoLogin();
-    this.authService.isAuthenticated().subscribe(isAuthenticated=>
-      {
-        this.isLoggedIn = isAuthenticated
-        if(this.isLoggedIn){
-          this.router.navigate(['/application/v1'])
-        }
-      })
-    }
+  // ngOnInit(): void {
+  //   this.authService.autoLogin();
+  //   this.authService.isAuthenticated().subscribe(isAuthenticated=>
+  //     {
+  //       this.isLoggedIn = isAuthenticated
+  //       if(this.isLoggedIn){
+  //         this.router.navigate(['/application/v1'])
+  //       }
+  //     })
+  //   }
   }

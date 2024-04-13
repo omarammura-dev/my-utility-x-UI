@@ -4,13 +4,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthResponseData, AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [NgIf,FormsModule],
+  imports: [NgIf,FormsModule,RouterLink],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
@@ -56,7 +56,9 @@ export class AuthComponent {
       this.error = err.error.error
     })
     form.reset()
-    this.isLoading = false
-  
+    this.isLoading = false 
   }
+
+  
+
 }
