@@ -11,6 +11,9 @@ export interface AuthResponseData {
     error?:string
 }
 
+export interface ResetPasswordResponseData{
+    message:String
+}
 
 
 @Injectable({providedIn: 'root'})
@@ -43,6 +46,14 @@ export class AuthService {
             this.handleAuthentication(resData.user.ID,resData.user.Username,resData.user.Email,resData.token)
          }))
         
+    }
+
+    sendResetPasswordLink(email:String){
+        return this.http.post<ResetPasswordResponseData>(environment.apiUrl+'user/reset-password',{
+            email:email  
+        }).pipe(tap(resData =>{
+            
+        }))
     }
 
     private handleAuthentication(userId:string,username:string,email:string, token:string){
