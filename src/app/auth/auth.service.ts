@@ -48,12 +48,23 @@ export class AuthService {
         
     }
 
+    createNewPassword(oldPassowrd:string,newPassword:string,token:string){
+        return this.http.post<ResetPasswordResponseData>(environment.apiUrl+'user/reset-password/confirm/',{
+            oldPassowrd:oldPassowrd,
+            newPassword:newPassword
+        },
+        {
+            params:{
+                "token":token
+            }
+
+        }).pipe(tap())
+    }
+
     sendResetPasswordLink(email:String){
         return this.http.post<ResetPasswordResponseData>(environment.apiUrl+'user/reset-password',{
             email:email  
-        }).pipe(tap(resData =>{
-            
-        }))
+        }).pipe(tap())
     }
 
     private handleAuthentication(userId:string,username:string,email:string, token:string){

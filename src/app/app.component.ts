@@ -20,7 +20,7 @@ export class AppComponent  {
   
   isLoggedIn = false
 
-  constructor(private authService:AuthService,private router:Router,private route: ActivatedRoute,  private http: HttpClient){}
+  constructor(){}
   // ngOnInit(): void {
   //   this.authService.autoLogin();
   //   this.authService.isAuthenticated().subscribe(isAuthenticated=>

@@ -13,7 +13,7 @@ import { AuthService } from '../../auth.service';
 export class ResetPasswordComponent {
 
   message:String = ""
-  isError:boolean = false
+  error:String = ""
   isLoading:Boolean = false
 
 
@@ -29,13 +29,13 @@ export class ResetPasswordComponent {
 
     let resetPassObs = this.authService.sendResetPasswordLink(email)
 
-    resetPassObs.subscribe(resData =>{
-      this.message = resData.message
-    },err =>{
-      this.isError = true
-      this.message = err
-    })
-    form.reset
+    resetPassObs.subscribe(
+      {
+        next: c => this.message = c.message,
+        error: e => this.error = e.error.error
+      }
+    )
+    form.reset()
     this.isLoading = false
   }
 }
