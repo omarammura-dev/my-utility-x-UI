@@ -49,9 +49,10 @@ export class AuthService {
     }
 
     createNewPassword(oldPassowrd:string,newPassword:string,token:string){
-        return this.http.post<ResetPasswordResponseData>(environment.apiUrl+'user/reset-password/confirm/',{
-            oldPassowrd:oldPassowrd,
-            newPassword:newPassword
+        console.log(newPassword)
+        return this.http.post<ResetPasswordResponseData>(environment.apiUrl+'user/reset-password/confirm',{
+            oldpassword:oldPassowrd,
+            newpassword:newPassword
         },
         {
             params:{
