@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h2>Total Expenses</h2>
+        <figure id="bar"></figure>
+      </div>
+      <div class="col-6">
+        <h2>Monthly Expenses</h2>
+        <figure id="plot"></figure>
+      </div>
+    </div>
+    <br>
+    <hr>
+    <table class="table table-striped" >
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expense of expenses; let index = index">
+            <th scope="row">{{index}}</th>
+            <td>{{expense.expenseName}}</td>
+            <td>{{expense.expenseType}}</td>
+            <td>{{expense.expenseDate | date:"short"}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <app-pagination [totalItems]="10" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (onClick)="changePage($event)"></app-pagination>
+</div>

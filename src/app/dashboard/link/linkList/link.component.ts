@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { LinkService } from './link.service';
-import { AuthService } from '../../auth/auth.service';
+import { LinkService } from '../link.service';
+import { AuthService } from '../../../auth/auth.service';
 import { Link } from './link.model';
-import { NgFor, NgIf } from '@angular/common';
-import { TruncatePipe } from '../../Pipes/truncate.pipe';
-import { ButtonComponent } from '../../design/basic-elements/button/button.component';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { TruncatePipe } from '../../../Pipes/truncate.pipe';
+import { ButtonComponent } from '../../../utils/basic-elements/button/button.component';
 import { CreateLinkComponent } from '../create-link/create-link.component';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../../environments/environment.development';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-link',
   standalone: true,
-  imports: [RouterLink, NgFor,TruncatePipe,ButtonComponent,CreateLinkComponent,RouterLinkActive,RouterOutlet,NgIf],
+  imports: [RouterLink, NgFor,TruncatePipe,ButtonComponent,CreateLinkComponent,RouterLinkActive,RouterOutlet,NgIf,DatePipe],
   templateUrl: './link.component.html',
   styleUrl: './link.component.css'
 })
@@ -29,7 +30,9 @@ ngOnInit(): void {
       this.isCreateLinkRoute = this.router.url.endsWith('/create-link');
     }
   })
-  this.linkService.getLinks().subscribe(links =>{
+  this.linkService.getLinks().pipe(
+    take(1),    
+  ).subscribe(links =>{
     this.linksArray =links
   })
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Params, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './design/header/header.component';
-import { SidebarComponent } from './design/sidebar/sidebar.component';
+import { HeaderComponent } from './utils/header/header.component';
+import { SidebarComponent } from './utils/sidebar/sidebar.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
-import { FooterComponent } from './design/footer/footer.component';
+import { FooterComponent } from './utils/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { environment } from '../environments/environment.development';
 
@@ -16,19 +16,17 @@ import { environment } from '../environments/environment.development';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  {
+export class AppComponent implements OnInit  {
   
   isLoggedIn = false
-
-  constructor(){}
-  // ngOnInit(): void {
-  //   this.authService.autoLogin();
-  //   this.authService.isAuthenticated().subscribe(isAuthenticated=>
-  //     {
-  //       this.isLoggedIn = isAuthenticated
-  //       if(this.isLoggedIn){
-  //         this.router.navigate(['/application/v1'])
-  //       }
-  //     })
-  //   }
+  
+  constructor(private authService:AuthService,private router:Router){}
+  ngOnInit(): void {
+    this.authService.isAuthenticated().subscribe(bool =>{
+      this.isLoggedIn = bool
+    })
+    if (this.isLoggedIn) {
+      this.router.navigate(['application/v1'])
+    }
+    }
   }

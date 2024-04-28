@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.development";
 import { BehaviorSubject, Subject,tap } from "rxjs";
 import { User } from "./user.model";
+import { Router } from "@angular/router";
 
 export interface AuthResponseData {
     message?:string,
@@ -21,7 +22,7 @@ export class AuthService {
 
     user = new BehaviorSubject<User|null>(null)
     private _isAuthenticated = new BehaviorSubject<boolean>(false);
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient, private router:Router){}
 
     signup(username:string, email:string,password:string){
       return this.http.post<AuthResponseData>(environment.apiUrl+'user/register',
@@ -101,13 +102,23 @@ export class AuthService {
     }
 
 
-    isAuthenticated(){
-      const user  = JSON.parse(localStorage.getItem("userData") as string)
-      if (user && new Date(user._tokenExpiration) > new Date()) {
-        this._isAuthenticated.next(true)
+    isAuthenticated() {
+        const user  = JSON.parse(localStorage.getItem("userData") as string);
+        if (user && new Date(user._tokenExpiration) > new Date()) {
+            const loadedUser = new User(user.ID, user.Username, user.Email, user._token, new Date(user._tokenExpiration));
+            this.user.next(loadedUser);
+          this._isAuthenticated.next(true);
+        } else {
+          this._isAuthenticated.next(false);
+        }
+        return this._isAuthenticated.asObservable();
       }
-      return this._isAuthenticated.asObservable() 
-    }
 
-  
+ 
+      logout(){
+        this.user.next(null)
+        this._isAuthenticated.next(false)
+        localStorage.removeItem("userData")
+        this.router.navigate(['/auth'])
+      }
 }

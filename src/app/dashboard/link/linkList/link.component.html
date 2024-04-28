@@ -18,7 +18,7 @@
         </div>
         <div class="flex items-center mt-2">
           <span class="text-gray-500 mr-2">Created At:</span>
-          <span>{{ link.createdat }}</span>
+          <span>{{ link.createdat | date:'short' }}</span>
         </div>
         <div class="flex items-center mt-2">
           <span class="text-gray-500 mr-2">Clicks:</span>

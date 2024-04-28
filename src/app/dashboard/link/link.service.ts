@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Link } from "./link.model";
+import { Link } from "./linkList/link.model";
 import { environment } from "../../../environments/environment.development";
 import { Injectable } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
-import { BehaviorSubject, switchMap, take, tap } from "rxjs";
+import { BehaviorSubject, catchError, of, switchMap, take, tap } from "rxjs";
 
 
 export interface ResponseData {
@@ -20,20 +20,24 @@ export class LinkService{
     constructor(private http:HttpClient,private authService:AuthService){}
 
     getLinks() {
-        this.authService.user.pipe(
-            take(1),
-            switchMap(user => {
-                return this.http.get<Link[]>(environment.apiUrl + 'url', {
-                    headers: new HttpHeaders().set('Authorization', user!.token as string)
-                });
-            })
-        ).subscribe(links => {
-            this.links.next(links)
-        }, err =>{
-            return err
-        });
-        return this.links.asObservable();
-    }
+        return this.authService.user.pipe(
+          take(1),
+          switchMap(user => {
+            if (user) {
+              return this.http.get<Link[]>(environment.apiUrl + 'url', {
+                headers: new HttpHeaders().set('Authorization', user.token as string)
+              });
+            } else {
+              return of([]);
+            }
+          }),
+          tap(links => this.links.next(links)),
+          catchError(e => {
+            console.error(e);
+            return of([]);
+          })
+        );
+      }
 
     
 

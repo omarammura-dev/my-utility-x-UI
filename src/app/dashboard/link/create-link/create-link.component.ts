@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { LinkService, ResponseData } from '../linkList/link.service';
+import { LinkService, ResponseData } from '../link.service';
 import { Observable } from 'rxjs';
 import { NgIf } from '@angular/common';
 

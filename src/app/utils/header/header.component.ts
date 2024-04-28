@@ -10,18 +10,18 @@ import { NgIf } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(private auhtService:AuthService){}
 
   isLoggedIn = false
 
-  ngOnInit(): void {
-    this.auhtService.autoLogin()
-    this.auhtService.isAuthenticated().subscribe(isAuthenticated =>{
-      this.isLoggedIn = isAuthenticated
-    })
-  }
+  // ngOnInit(): void {
+  //   this.auhtService.autoLogin()
+  //   this.auhtService.isAuthenticated().subscribe(isAuthenticated =>{
+  //     this.isLoggedIn = isAuthenticated
+  //   })
+  // }
  
 
 }
