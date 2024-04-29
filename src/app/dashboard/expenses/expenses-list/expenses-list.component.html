@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="expenses">
     <div class="row">
       <div class="col-6">
         <h2>Total Expenses</h2>
@@ -10,24 +10,29 @@
       </div>
     </div>
     <br>
-    <hr>
+    <hr class="mb-4">
+    <div class="d-flex justify-content-end ">
+      <button class="btn btn-primary mb-3">Add Expense</button>
+    </div>
     <table class="table table-striped" >
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Date</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let expense of expenses; let index = index">
+          <tr *ngFor="let expense of paginatedData; let index = index">
             <th scope="row">{{index}}</th>
             <td>{{expense.expenseName}}</td>
             <td>{{expense.expenseType}}</td>
+            <td>{{expense.price | currency:"TRY":"₺"}}</td>
             <td>{{expense.expenseDate | date:"short"}}</td>
           </tr>
         </tbody>
       </table>
-      <app-pagination [totalItems]="10" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (onClick)="changePage($event)"></app-pagination>
+      <app-pagination [totalItems]="totalItems.asObservable()" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (onClick)="changePage($event)"></app-pagination>
 </div>

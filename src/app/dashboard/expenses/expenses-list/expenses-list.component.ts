@@ -3,12 +3,12 @@ import { ExpensesService } from '../expenses.service';
 import { BehaviorSubject, reduce, switchMap, take } from 'rxjs';
 import { Expense } from '../expense.model';
 import * as d3 from 'd3';
-import { DatePipe, NgFor } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { PaginationComponent } from '../../../utils/pagination/pagination.component';
 @Component({
   selector: 'app-expenses-list',
   standalone: true,
-  imports: [NgFor,DatePipe,PaginationComponent],
+  imports: [NgFor,DatePipe,PaginationComponent,NgIf,CurrencyPipe],
   templateUrl: './expenses-list.component.html',
   styleUrl: './expenses-list.component.css'
 })
@@ -19,7 +19,7 @@ export class ExpensesListComponent implements OnInit{
   private height = 400 - (this.margin * 2);
   itemsPerPage = 4
   currentPage = 1
-  totalItems = 0
+  totalItems = new BehaviorSubject<number>(0)
   expenses:Expense[] = []
 
   constructor(private expenseService:ExpensesService){}
@@ -41,7 +41,7 @@ export class ExpensesListComponent implements OnInit{
         }, {});
 
           this.expenses = expense;
-          this.totalItems = this.expenses.length
+          this.totalItems.next(this.expenses.length)
           const barChart = this.createSvg("bar");
           const plotChart = this.createSvg("plot"); 
           this.drawBars(data,barChart);
@@ -150,6 +150,13 @@ private drawScatterPlot(dataArray:any[],svg:any){
       .attr("cy", (d:any) => y(d.price)) 
       .attr("r", 5)
       .attr("fill", "#69b3a2")
+}
+
+get paginatedData(){
+  const start = (this.currentPage - 1) * (this.itemsPerPage)
+  const end = start + this.itemsPerPage
+
+  return this.expenses.slice(start,end)
 }
 
 changePage(page:number){
