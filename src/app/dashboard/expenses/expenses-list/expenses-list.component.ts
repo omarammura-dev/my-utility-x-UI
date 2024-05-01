@@ -5,6 +5,18 @@ import { Expense } from '../expense.model';
 import * as d3 from 'd3';
 import { CurrencyPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { PaginationComponent } from '../../../utils/pagination/pagination.component';
+import { AddExpenseComponent } from '../add-expense/add-expense.component';
+import { MatDialog } from '@angular/material/dialog';
+
+
+
+export interface ExpenseData {
+  name: string;
+  type:string
+  price:number;
+}
+
+
 @Component({
   selector: 'app-expenses-list',
   standalone: true,
@@ -12,6 +24,9 @@ import { PaginationComponent } from '../../../utils/pagination/pagination.compon
   templateUrl: './expenses-list.component.html',
   styleUrl: './expenses-list.component.css'
 })
+
+
+
 export class ExpensesListComponent implements OnInit{
 
   private margin = 50;
@@ -21,12 +36,20 @@ export class ExpensesListComponent implements OnInit{
   currentPage = 1
   totalItems = new BehaviorSubject<number>(0)
   expenses:Expense[] = []
+  expensePrice:number = 0
+  expenseName:string = "" 
+  expenseType: string = "" 
 
-  constructor(private expenseService:ExpensesService){}
+  constructor(private expenseService:ExpensesService,public dialog:MatDialog){}
 
   
   ngOnInit(): void {
-    this.expenseService.getExpenses().pipe(
+    this.fetchExpenses()
+  }
+
+
+   fetchExpenses(){
+    return this.expenseService.getExpenses().pipe(
       take(1),
     ).subscribe(
       {
@@ -52,7 +75,6 @@ export class ExpensesListComponent implements OnInit{
       }
     )
   }
-
 
   calculateMonths(){
     let months:any = {};
@@ -161,5 +183,16 @@ get paginatedData(){
 
 changePage(page:number){
   this.currentPage = page
+}
+
+
+openDialog(): void {
+  const dialogRef = this.dialog.open(AddExpenseComponent, {
+    data: {name: this.expenseName, type:this.expenseType, price:this.expensePrice },
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed' + result);
+  });
 }
 }
