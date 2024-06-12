@@ -55,6 +55,7 @@ build image:
 #   only:
 #     - main  
 deploy:
+
   stage: deploy
   script:
     - 'which ssh-agent || ( apk update && apk add openssh-client )'
