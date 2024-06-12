@@ -2,7 +2,9 @@ image: node:21-alpine
 
 stages:
   - build
+  - build-docker
   - deploy
+  
 
 cache:
   paths:
