@@ -1,20 +1,19 @@
-FROM node:21-alpine
+FROM node:18.13.0 as build
+
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
+
+RUN npm install -g @angular/cli
 
 COPY . .
 
-RUN ng build --prod
-
-# Install openssh-client for scp command
-
+RUN ng build --configuration=production
 
 FROM nginx:latest
 
-COPY --from=builder /app/dist/front-end /usr/share/nginx/html
+COPY --from=build app/dist/aftas-angular /usr/share/nginx/html
 
-EXPOSE 80 
-
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 80
