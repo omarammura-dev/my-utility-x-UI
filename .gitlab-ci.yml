@@ -28,7 +28,7 @@ build image:
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
   only:
-    - master      
+    - main      
 
 # deploy:
 #   stage: deploy
@@ -55,7 +55,6 @@ build image:
 #   only:
 #     - main  
 deploy:
-
   stage: deploy
   script:
     - 'which ssh-agent || ( apk update && apk add openssh-client )'
