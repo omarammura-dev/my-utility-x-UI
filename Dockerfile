@@ -1,4 +1,4 @@
-FROM node:22.1.0 as build
+FROM --platform=linux/arm64 node:22.1.0 as build
 
 WORKDIR /app
 
